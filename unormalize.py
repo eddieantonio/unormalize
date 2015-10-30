@@ -18,8 +18,12 @@ Options
 
 import os
 import sys
-import unicodedata
+import argparse
 import fileinput
+import unicodedata
+
+__author__ = 'Eddie Antonio Santos'
+__version__ = '0.1.0'
 
 def process(line, form='NFC'):
     r"""
@@ -32,16 +36,64 @@ def process(line, form='NFC'):
     norm = unicodedata.normalize(form, line)
     return norm.encode('UTF-8')
 
-def get_form(program_name):
-    name = os.path.basename(program_name)
-    if name in ['nfc', 'nfd', 'nfkc', 'nfkd']:
-        return name.upper()
-    return None
+def nfc():
+    sys.exit(main(form='NFC'))
 
-def main(program_name, *arguments):
-    form = get_form(program_name) or 'NFC'
-    for line in fileinput.input():
+def nfd():
+    sys.exit(main(form='NFD'))
+
+def nfkc():
+    sys.exit(main(form='NFKC'))
+
+def nfkd():
+    sys.exit(main(form='NFKD'))
+
+def parse_args(form_default):
+    parser = argparse.ArgumentParser(
+        description='perform Unicode normalization',
+    )
+
+    parser.add_argument(
+        '-f', '--form', metavar='FORM',
+        help='one of nfc, nfd, nfkc, or nfkd (default is %s)' % (form_default,),
+        default=form_default,
+        choices=['nfc', 'nfd', 'nfkc', 'nfkd'])
+
+    parser.add_argument(
+        '-i', '--in-place', metavar='EXTENSION',
+        help='Edits files in place',
+        nargs='?', default=None, const='.bak')
+
+    parser.add_argument(
+        'files', metavar='FILES', nargs=argparse.REMAINDER,
+        help='Zero or more files; if none given, uses stdin'
+    )
+
+    args = parser.parse_args()
+
+    # Ensure --in-place is given with arguments.
+    if args.in_place and len(args.files) < 1:
+        parser.error('must specify at least one file to use -i/--in-place')
+
+    # Uppercase the normalization form name:
+    args.form = args.form.upper()
+    # Add a dot to the extension.
+    if args.in_place and not args.in_place.startswith('.'):
+        args.in_place = '.' + args.in_place
+
+    return args
+
+def main(form_default='NFC', inplace=None):
+    args = parse_args(form_default)
+    files, form, in_place = args.files, args.form, args.in_place
+
+    if len(files):
+        all_files = fileinput.input(files, inplace=in_place and 1, backup=in_place)
+    else:
+        all_files = fileinput.input()
+
+    for line in all_files:
         sys.stdout.write(process(line, form))
 
 if __name__ == '__main__':
-    main(*sys.argv)
+    sys.exit(main())
