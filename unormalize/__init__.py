@@ -23,9 +23,10 @@ import fileinput
 import unicodedata
 
 __author__ = 'Eddie Antonio Santos'
+__license__ = 'MIT'
 __version__ = '0.1.0'
 
-def process(line, form='NFC'):
+def process(line, form):
     r"""
     >>> from unicodedata import lookup as u
     >>> line = 'e' + u('COMBINING ACUTE ACCENT') + 'tude\n'
@@ -37,16 +38,16 @@ def process(line, form='NFC'):
     return norm.encode('UTF-8')
 
 def nfc():
-    sys.exit(main(form='NFC'))
+    sys.exit(main(form_default='NFC'))
 
 def nfd():
-    sys.exit(main(form='NFD'))
+    sys.exit(main(form_default='NFD'))
 
 def nfkc():
-    sys.exit(main(form='NFKC'))
+    sys.exit(main(form_default='NFKC'))
 
 def nfkd():
-    sys.exit(main(form='NFKD'))
+    sys.exit(main(form_default='NFKD'))
 
 def parse_args(form_default):
     parser = argparse.ArgumentParser(
