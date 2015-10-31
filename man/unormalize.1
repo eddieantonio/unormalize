@@ -1,0 +1,44 @@
+.TH "UNORMALIZE" "1" "October 30, 2015" "Unicode Normalization" ""
+.SH NAME
+.PP
+unormalize \- convert between Unicode normalization forms
+.SH SYNOPSIS
+.PP
+unormalize [\-\-form={nfc,nfd,nfkc,nfkd}] [\-\-in\-place=EXTENSION]
+[\f[I]files\f[]...]
+.PP
+nfc [\-\-in\-place=\f[I]EXTENSION\f[]] [\f[I]files\f[]...]
+.PP
+nfd [\-\-in\-place=\f[I]EXTENSION\f[]] [\f[I]files\f[]...]
+.PP
+nfkc [\-\-in\-place=\f[I]EXTENSION\f[]] [\f[I]files\f[]...]
+.PP
+nfkd [\-\-in\-place=\f[I]EXTENSION\f[]] [\f[I]files\f[]...]
+.SH DESCRIPTION
+.PP
+\f[C]unormalize\f[] (and its siblings) converts its standard input or
+any files given to it to the desired Unicode normalization form.
+Either use the filter with the corresponding name, or use the general
+\f[C]unormalize\f[] tool with the \f[C]\-\-form\f[] argument.
+.SS Options
+.TP
+.B \-h, \-\-help
+shows help message and exits
+.RS
+.RE
+.TP
+.B \-f FORM, \-\-form FORM
+one of nfc, nfd, nfkc, or nfkd (default is NFC)
+.RS
+.RE
+.TP
+.B \-i [EXTENSION], \-\-in\-place [EXTENSION]
+Edits files in place, appending EXTENSION to the filename of the
+back\-up files.
+.RS
+.RE
+.SH LICENSE
+.PP
+MIT licensed.
+.SH AUTHORS
+Eddie Antonio Santos.
