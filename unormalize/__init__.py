@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+# Copyright (c) 2015 Eddie Antonio Santos. MIT Licensed.
+# See LICENSE for details.
+
 """
 unormalize [args] [FILES]
 
