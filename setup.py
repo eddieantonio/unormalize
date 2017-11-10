@@ -11,7 +11,7 @@ def long_description():
 setup(
     name='unormalize',
     version=unormalize.__version__,
-    description=unormalize.__doc__.strip(),
+    description='Unicode normalization filters',
     long_description=long_description(),
     url='https://github.com/eddieantonio/unormalize',
     download_url='https://github.com/eddieantonio/unormalize',

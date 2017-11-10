@@ -1,6 +1,6 @@
-**************************************************
-unormalize - Filters that do Unicode normalization
-**************************************************
+**********
+unormalize
+**********
 
 Converts UTF-8 input to the desired UTF-8 in Unicode normalization form.
 
@@ -40,7 +40,7 @@ Options
 Examples
 ========
 
-Convert clipboard contents to NFC (OS X)::
+Convert clipboard contents to NFC (macOS)::
 
     $ pbpaste | nfc | pbcopy
 
@@ -57,6 +57,6 @@ Convert circled, variants, and half-widths to their compatible forms::
 License
 =======
 
-© 2015 Eddie Antonio Santos. MIT Licensed.
+© 2015, 2017 Eddie Antonio Santos. MIT Licensed.
 
 .. _`Unicode Normalization Forms`: http://unicode.org/reports/tr15/
