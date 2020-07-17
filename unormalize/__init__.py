@@ -107,21 +107,40 @@ def parse_args(form_default):
     return args
 
 
+def ensure_unicode_object(text):
+    if sys.version_info >= (3,):
+        # Python 3+
+        return text
+    return text.decode("UTF-8")
+
+
+def ensure_writable_output(text):
+    if sys.version_info >= (3,):
+        # Python 3+
+        return text
+    return text.encode("UTF-8")
+
+
 def main(form_default="NFC"):
     args = parse_args(form_default)
     files, form, in_place = args.files, args.form, args.in_place
 
-    if not files:
+    if files == []:
+        # read from stdin by default
         files.append("-")
 
+    options = {}
+
     if in_place:
-        all_files = fileinput.input(files, inplace=True, backup=in_place)
-    else:
-        all_files = fileinput.input(files)
+        options.update(inplace=True, backup=in_place)
+
+    all_files = fileinput.input(files, **options)
 
     # fileinput.inplace redirects stdout
     for line in all_files:
-        sys.stdout.write(process(line, form))
+        sys.stdout.write(
+            ensure_writable_output(process(ensure_unicode_object(line), form))
+        )
 
 
 if __name__ == "__main__":
