@@ -57,6 +57,6 @@ Convert circled, variants, and half-widths to their compatible forms::
 License
 =======
 
-© 2015, 2017 Eddie Antonio Santos. MIT Licensed.
+© 2015, 2017, 2020 Eddie Antonio Santos. MIT Licensed.
 
 .. _`Unicode Normalization Forms`: http://unicode.org/reports/tr15/

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-# Copyright (c) 2015, 2017 Eddie Antonio Santos. MIT Licensed.
+# Copyright (c) 2015, 2017, 2020 Eddie Antonio Santos. MIT Licensed.
 # See LICENSE for details.
 
 """
