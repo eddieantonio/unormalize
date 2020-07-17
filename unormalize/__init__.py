@@ -29,15 +29,16 @@ import unicodedata
 
 __author__ = "Eddie Antonio Santos"
 __license__ = "MIT"
-__version__ = "0.2.0"
+__version__ = "2020.7.17"
 
 
 def process(line, form):
     r"""
     >>> from unicodedata import lookup as u
-    >>> line = 'e' + u('COMBINING ACUTE ACCENT') + 'tude\n'
-    >>> process(line.encode('UTF-8'), 'NFC')
-    '\xc3\xa9tude\n'
+    >>> line = u'e' + u('COMBINING ACUTE ACCENT') + 'tude\n'
+    >>> res = process(line, 'NFC')
+    >>> res == (u('LATIN SMALL LETTER E WITH ACUTE') + u'tude\n')
+    True
     """
     return unicodedata.normalize(form, line)
 
