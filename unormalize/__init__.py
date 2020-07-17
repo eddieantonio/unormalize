@@ -39,9 +39,7 @@ def process(line, form):
     >>> process(line.encode('UTF-8'), 'NFC')
     '\xc3\xa9tude\n'
     """
-    line = line.decode('UTF-8')
-    norm = unicodedata.normalize(form, line)
-    return norm.encode('UTF-8')
+    return unicodedata.normalize(form, line)
 
 
 def nfc():
