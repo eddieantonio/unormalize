@@ -111,13 +111,13 @@ def main(form_default="NFC"):
     args = parse_args(form_default)
     files, form, in_place = args.files, args.form, args.in_place
 
-    if len(files):
-        if in_place:
-            all_files = fileinput.input(files, inplace=True, backup=in_place)
-        else:
-            all_files = fileinput.input(files)
+    if not files:
+        files.append("-")
+
+    if in_place:
+        all_files = fileinput.input(files, inplace=True, backup=in_place)
     else:
-        all_files = fileinput.input()
+        all_files = fileinput.input(files)
 
     # fileinput.inplace redirects stdout
     for line in all_files:
