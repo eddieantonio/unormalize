@@ -1,4 +1,5 @@
 import codecs
+
 from setuptools import find_packages, setup  # type: ignore
 
 import unormalize
@@ -14,6 +15,7 @@ setup(
     version=unormalize.__version__,
     description="Unicode normalization filters",
     long_description=long_description(),
+    long_description_content_type="text/x-rst",
     url="https://github.com/eddieantonio/unormalize",
     download_url="https://github.com/eddieantonio/unormalize",
     author=unormalize.__author__,
