@@ -21,15 +21,15 @@ Options
     -f FORM-- normalization form
 """
 
-import os
-import sys
 import argparse
 import fileinput
+import os
+import sys
 import unicodedata
 
-__author__ = 'Eddie Antonio Santos'
-__license__ = 'MIT'
-__version__ = '0.2.0'
+__author__ = "Eddie Antonio Santos"
+__license__ = "MIT"
+__version__ = "0.2.0"
 
 
 def process(line, form):
@@ -43,64 +43,70 @@ def process(line, form):
 
 
 def nfc():
-    sys.exit(main(form_default='nfc'))
+    sys.exit(main(form_default="nfc"))
 
 
 def nfd():
-    sys.exit(main(form_default='nfd'))
+    sys.exit(main(form_default="nfd"))
 
 
 def nfkc():
-    sys.exit(main(form_default='nfkc'))
+    sys.exit(main(form_default="nfkc"))
 
 
 def nfkd():
-    sys.exit(main(form_default='nfkd'))
+    sys.exit(main(form_default="nfkd"))
 
 
 def parse_args(form_default):
-    parser = argparse.ArgumentParser(
-        description='perform Unicode normalization',
-    )
+    parser = argparse.ArgumentParser(description="perform Unicode normalization",)
 
     parser.add_argument(
-        '-f', '--form', metavar='FORM',
-        help='one of nfc, nfd, nfkc, or nfkd (default is %s)' %
-             (form_default,),
+        "-f",
+        "--form",
+        metavar="FORM",
+        help="one of nfc, nfd, nfkc, or nfkd (default is %s)" % (form_default,),
         default=form_default,
-        choices=['nfc', 'nfd', 'nfkc', 'nfkd'])
-
-    parser.add_argument(
-        '-i', '--in-place', metavar='EXTENSION',
-        help='Edits files in place',
-        nargs='?', default=None, const='.bak')
-
-    parser.add_argument(
-        'files', metavar='FILES', nargs=argparse.REMAINDER,
-        help='Zero or more files; if none given, uses stdin'
+        choices=["nfc", "nfd", "nfkc", "nfkd"],
     )
 
     parser.add_argument(
-        '-v', '--version', action='version',
-        version='%(prog)s ' + __version__
+        "-i",
+        "--in-place",
+        metavar="EXTENSION",
+        help="Edits files in place",
+        nargs="?",
+        default=None,
+        const=".bak",
+    )
+
+    parser.add_argument(
+        "files",
+        metavar="FILES",
+        nargs=argparse.REMAINDER,
+        help="Zero or more files; if none given, uses stdin",
+    )
+
+    parser.add_argument(
+        "-v", "--version", action="version", version="%(prog)s " + __version__
     )
 
     args = parser.parse_args()
 
     # Ensure --in-place is given with arguments.
     if args.in_place and len(args.files) < 1:
-        parser.error('must specify at least one file to use -i/--in-place')
+        parser.error("must specify at least one file to use -i/--in-place")
 
     # Uppercase the normalization form name:
     args.form = args.form.upper()
     # Add a dot to the extension.
-    if args.in_place and not args.in_place.startswith('.'):
-        args.in_place = '.' + args.in_place
+    if args.in_place and not args.in_place.startswith("."):
+        args.in_place = "." + args.in_place
 
     return args
 
 
-def main(form_default='NFC'):
+def main(form_default="NFC"):
     args = parse_args(form_default)
     files, form, in_place = args.files, args.form, args.in_place
 
@@ -117,5 +123,5 @@ def main(form_default='NFC'):
         sys.stdout.write(process(line, form))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())
